@@ -1,4 +1,3 @@
-# UsticaPollution
 # Air Pollution Analysis in Lombardy, Italy
 
 ## Overview
