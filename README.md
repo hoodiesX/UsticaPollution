@@ -34,11 +34,11 @@ This project not only sheds light on the environmental challenges facing Lombard
 
 ## Future Work
 
-We recommend further studies to explore additional variables that may influence air quality, as well as the implementation of more advanced modeling techniques to enhance predictive accuracy.
+I recommend further studies to explore additional variables that may influence air quality, as well as the implementation of more advanced modeling techniques to enhance predictive accuracy.
 
 ## Acknowledgments
 
-We would like to extend our gratitude to our project collaborators for their contributions and dedication throughout this research initiative.
+I would like to extend my gratitude to my 2 project collaborators for their contributions and dedication throughout this research initiative.
 
 ---
 
