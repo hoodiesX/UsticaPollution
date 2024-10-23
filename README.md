@@ -24,8 +24,8 @@ We adopted a rigorous analytical approach that involved:
 
 ## Repository Structure
 
-- `analysis.html`: A detailed report outlining our findings, methodologies, and visualizations.
-- `data/`: A folder containing raw datasets utilized in the analysis.
+- `Analysis.html`: A detailed report outlining our findings, methodologies, and visualizations.
+- `Agrimonia_stations.RData`: A folder containing raw datasets utilized in the analysis.
 - `scripts/`: Scripts used for data processing and statistical analysis.
 
 ## Conclusion
