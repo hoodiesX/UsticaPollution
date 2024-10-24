@@ -15,12 +15,11 @@ Key findings from our analysis include:
 - **Influence of Other Pollutants:** The limited effect of cattle density may be overshadowed by the dominance of other pollutants in the sampled areas, which exert a more pronounced impact on air quality.
 
 ## Methodology
+We adopted a rigorous analytical approach using **R** as the primary tool for data processing and statistical analysis, which involved:
 
-We adopted a rigorous analytical approach that involved:
-
-1. **Data Collection:** Gathering extensive datasets from monitoring stations across Lombardy.
-2. **Statistical Analysis:** Implementing linear regression models to assess the relationship between variables and identifying potential outliers.
-3. **Visualization:** Creating informative visualizations to effectively communicate the results and highlight key trends in the data.
+1. **Data Collection**: Gathering extensive datasets from monitoring stations across Lombardy.
+2. **Statistical Analysis**: Implementing linear regression models in **R** to assess the relationship between variables and identifying potential outliers.
+3. **Visualization**: Using **R's ggplot2** library to create informative visualizations to effectively communicate the results and highlight key trends in the data.
 
 ## Repository Structure
 
