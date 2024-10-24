@@ -26,7 +26,7 @@ We adopted a rigorous analytical approach that involved:
 
 - `GUstica_Report.html`: A detailed report outlining our findings, methodologies, and visualizations.
 - `Agrimonia_stations.RData`: A folder containing raw datasets utilized in the analysis.
-- `Script-Rmd`: Scripts used for data processing and statistical analysis.
+- `Script.Rmd`: Scripts used for data processing and statistical analysis.
 
 ## Conclusion
 
