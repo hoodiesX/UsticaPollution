@@ -1,0 +1,299 @@
+---
+title: "GUstica_Report.html"
+author: "De Vivo Massimo"
+date: "2023-11-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+setwd("C:\\Users\\Max\\Downloads")
+load("Agrimonia_stations.RData")
+ls()
+dim(table(agri$NameStation))
+head(agri)
+dim(agri)
+names(agri)
+
+```
+Datas are loaded into agri's table.
+
+# Variabile risposta y
+PM10: Particulate matter with an aerodynamic diameter of less than 10 μm
+
+
+We chose PM10 as the response variable because it fits our model best.
+
+# Explanatory variable x to answer the research question
+LI_bovine: Municipal density of bovines related to AQ stations
+
+We chose the density of bovine farms as the explanatory variable because we are interested in understanding how livestock farming affects air quality.
+
+Additionally, we used the variables
+WE_temp_2m: Temperature of air at 2 m above the surface of land, sea, or inland water
+WE_wind_speed_10_mean: Mean wind speed intensity at a height of 10 m above the Earth's surface
+
+To provide a more realistic comparison with air pollution, as the bovine density variable alone did not yield consistent results.
+
+# Research Question
+What impact do bovine farms have on air quality? 
+What effect does increasing or decreasing their number have on the PM10 pollutant?
+
+# Approach
+We select the relevant days
+
+```{r}
+agri$NameStation = as.factor(agri$NameStation)
+agri$Province = as.factor(agri$Province)
+summary(agri$NameStation)
+
+agri_da = agri[agri$Time=="2017-07-11",]
+agri_da2= agri[agri$Time=="2017-01-11",]
+dim(agri_da)
+
+```
+Abbiamo selezionato un giorno estivo e uno invernale per avere il confronto tra due stagioni opposte.
+
+```{r}
+#estate
+agri_da_y = agri_da[!is.na(agri_da$LI_bovine),]
+dim(agri_da_y)
+#inverno
+agri_da_x = agri_da2[!is.na(agri_da$LI_bovine),]
+dim(agri_da_x)
+```
+Abbiamo rimosso dalla tabella tutte le stazioni che hanno la variabile degli allevamenti di bovini con valore mancante.
+
+```{r}
+cat("variabilità bovini estate", "\n")
+summary(agri_da_y$LI_bovine)
+cat("\n", "variabilità bovini inverno", "\n")
+summary(agri_da_x$LI_bovine)
+```
+Abbiamo stampato la variabilità del numero di bovini in estate e in inverno per verificare la differenza nei due casi.
+
+
+```{r}
+
+# ESTATE
+attach(agri_da_y)
+plot(agri_da_y$NameStation, AQ_pm10, xlab = "" , ylab = "pm 10 estate", las = 2, cex.axis = 0.4)
+legend("topright", legend = "pm 10")
+
+plot(agri_da_y$NameStation, AQ_pm25, xlab = "" , ylab = "pm 2.5 estate", las = 2, cex.axis = 0.4)
+legend("topright", legend = "pm 2.5")
+
+plot(agri_da_y$NameStation, AQ_nox, xlab = "" , ylab = "nox estate", las = 2, cex.axis = 0.4)
+legend("topright", legend = "nox")
+
+#INVERNO
+attach(agri_da_x)
+plot(agri_da_x$NameStation, AQ_pm10, xlab = "" , ylab = "pm 10 inverno", las = 2, cex.axis = 0.4)
+legend("topright", legend = "pm10")
+
+plot(agri_da_x$NameStation, AQ_pm25, xlab = "" , ylab = "pm 2.5 inverno", las = 2, cex.axis = 0.4)
+legend("topright", legend = "pm 2.5")
+
+plot(agri_da_x$NameStation, AQ_nox, xlab = "" , ylab = "nox inverno", las = 2, cex.axis = 0.4)
+legend("topright", legend = "nox")
+
+```
+Abbiamo creato i grafici con la distribuzione delle diverse variabili che rappresentano i fattori inquinanti dell'aria per stazione nel singolo giorno, separando estate ed inverno. 
+
+Da questi possiamo notare che c'è differenza di inquinamento tra estate ed inverno.
+
+```{r}
+mean_pm10_estate <- mean(agri_da_y$AQ_pm10, na.rm = TRUE)
+mean_pm10_inverno <- mean(agri_da_x$AQ_pm10, na.rm = TRUE)
+
+mean_pm25_estate <- mean(agri_da_y$AQ_pm25, na.rm = TRUE)
+mean_pm25_inverno <- mean(agri_da_x$AQ_pm25, na.rm = TRUE)
+
+mean_nox_estate <- mean(agri_da_y$AQ_nox, na.rm = TRUE)
+mean_nox_inverno <- mean(agri_da_x$AQ_nox, na.rm = TRUE)
+
+cat("Media PM10 in estate:", mean_pm10_estate, "\n")
+cat("Media PM10 in inverno:", mean_pm10_inverno, "\n")
+
+cat("Media PM2.5 in estate:", mean_pm25_estate, "\n")
+cat("Media PM2.5 in inverno:", mean_pm25_inverno, "\n")
+
+cat("Media NOx in estate:", mean_nox_estate, "\n")
+cat("Media NOx in inverno:", mean_nox_inverno, "\n")
+```
+Per avere ulteriori conferme, abbiamo calcolato anche la media dei valori dei vari inquinanti e abbiamo notato che in inverno l'inquinamento è più alto.
+
+
+# Analisi variabile risposta
+
+```{r}
+#ESTATE pm10
+# histogram
+hist(agri_da_y$AQ_pm10, main = "Distribuzione di pm10 in estate", xlab = "pm10", col = "skyblue", border = "black")
+
+#plot density
+plot(density(agri_da_y$AQ_pm10, na.rm = TRUE), main = "Densità di pm10", xlab = "pm10", col = "skyblue", lwd = 2)
+
+plot(density(log(agri_da_y$AQ_pm10),na.rm = TRUE), main = "Densità di pm10 log", xlab = "pm10", col = "purple", lwd = 2)
+
+plot(density(sqrt(agri_da_y$AQ_pm10), na.rm = TRUE), main = "Densità di pm10 radice quadrata", xlab = "pm10", col = "blue", lwd = 2)
+
+
+plot(density((agri_da_y$AQ_pm10)^(1/3), na.rm = TRUE), main = "Densità di pm10 radice cubica", xlab = "pm10", col = "red", lwd = 2)
+
+
+# INVERNO pm10
+
+# histogram
+hist(agri_da_x$AQ_pm10, main = "Distribuzione di pm10 in inverno", xlab = "pm10", col = "skyblue", border = "black")
+
+#plot density
+plot(density(agri_da_x$AQ_pm10, na.rm = TRUE), main = "Densità di pm10", xlab = "pm10", col = "skyblue", lwd = 2)
+
+plot(density(log(agri_da_x$AQ_pm10),na.rm = TRUE), main = "Densità di pm10 log", xlab = "pm10", col = "purple", lwd = 2)
+
+plot(density(sqrt(agri_da_x$AQ_pm10), na.rm = TRUE), main = "Densità di pm10 radice quadrata", xlab = "pm10", col = "blue", lwd = 2)
+
+
+plot(density((agri_da_x$AQ_pm10)^(1/3), na.rm = TRUE), main = "Densità di pm10 radice cubica", xlab = "pm10", col = "red", lwd = 2)
+
+```
+Abbiamo fatto diversi grafici per normalizzare la distribuzione di pm10.
+Per l'estate abbiamo scelto la radice cubica, mentre per l'inverno il grafico senza approssimazioni.
+
+
+# Correlazione
+```{r}
+#ESTATE
+library(corrplot)
+cor_matrix_estate <- cor(agri_da_y[, c("AQ_pm10", "AQ_pm25", "LI_bovine", "AQ_nox")],use = "complete.obs")
+cat("Correlazione variabili in estate")
+cat("\n")
+print(cor_matrix_estate)
+cat("\n")
+corrplot(cor_matrix_estate, method = "color", type = "upper", order = "hclust", tl.cex = 0.7)
+
+#INVERNO
+cor_matrix_inverno <- cor(agri_da_x[, c("AQ_pm10", "AQ_pm25", "LI_bovine", "AQ_nox")],use = "complete.obs")
+cat("Correlazione variabili in inverno")
+cat("\n")
+print(cor_matrix_inverno)
+corrplot(cor_matrix_inverno, method = "color", type = "upper", order = "hclust", tl.cex = 0.7)
+
+```
+Abbiamo calcolato la correlazione dei vari inquinanti in estate e in inverno con la variabile bovini.
+Possiamo notare che la correlazione tra bovini ed inquinanti:
+- in estate è positiva ma debole, di conseguenza possiamo dire che le emissioni dei bovini hanno un'influenza minima sulla qualità dell'aria.
+- in inverno è debolmente negativa, ovvero le emissioni di bovini non influiscono sull'inquinamento. Una spiegazione potrebbe essere che, essendoci molti altri agenti inquinanti, l'impatto dei bovini è irrilevante. 
+
+
+# Modello lineare 
+
+```{r}
+# estate
+model_pm10 <- lm((AQ_pm10)^(1/3) ~ LI_bovine, data = agri_da_y)
+model_pm10_2 <- lm((AQ_pm10)^(1/3) ~ LI_bovine + WE_temp_2m +WE_wind_speed_10m_mean,  data = agri_da_y)
+cat("Modello lineare a una variabile (estate)", "\n")
+summary(model_pm10)
+cat("Modello lineare a più variabili (estate)", "\n")
+summary(model_pm10_2)
+```
+In the single-variable linear model, we observe that an increase of one unit in LI_bovine is associated with an estimated increase of 0.00177 in the cubic mean of PM10.
+
+The p-value associated with LI_bovine is 0.00697, which is less than 0.05, indicating that the coefficient is statistically significant.
+
+The model has an R-squared of 0.07415, meaning that 7.4% of the variation in the cubic mean of AQ_PM10 can be explained by the LI_bovine variable.
+
+In the multi-variable linear model, we observe the following:
+
+- LI_bovine: The coefficient is 0.0009026, and the associated p-value is 0.104578. It is not statistically significant at a 5% significance level.
+
+- WE_temp_2m: The coefficient is 0.0371794, and the associated p-value is very low (0.000489). This indicates that WE_temp_2m is statistically significant and positively associated with the cubic mean of PM10.
+
+- WE_wind_speed_10m_mean: The coefficient is 0.0463938, but the p-value is 0.399096, indicating that this coefficient is not statistically significant at a 5% significance level.
+
+The model has an R-squared of 0.3763, meaning that 37.63% of the variation in the cubic mean of AQ_PM10 can be explained by the predictive variables in the model.
+
+In conclusion, we can state that the second multi-variable model seems to explain a greater percentage of the variation in the cubic mean of PM10 compared to the first single-variable model.
+
+```{r}
+#inverno
+
+model_pm10_inv <- lm(AQ_pm10 ~ LI_bovine, data = agri_da_x)
+model_pm10_inv_2 <- lm(AQ_pm10 ~ LI_bovine + WE_temp_2m + WE_wind_speed_10m_mean, data = agri_da_x)
+cat("Modello lineare a una variabile (inverno)", "\n")
+summary(model_pm10_inv)
+cat("Modello lineare a più variabili (inverno)", "\n")
+summary(model_pm10_inv_2)
+
+```
+
+```{r}
+
+par(mfrow = c(2, 2))
+
+#ESTATE
+plot(model_pm10)
+plot(model_pm10_2)
+
+#INVERNO
+plot(model_pm10_inv)
+plot(model_pm10_inv_2)
+
+```
+  
+ 
+
+
+PREVISIONE ESTATE
+
+```{r}
+
+
+model_pm10_2_basso <- lm((AQ_pm10)^(1/3) ~ LI_bovine + WE_temp_2m +WE_wind_speed_10m_mean,  data = agri_da_y)
+bovini=10
+temp=agri_da_y$WE_temp_2m
+wind=agri_da_y$WE_wind_speed_10m_mean
+
+newdata<-data.frame(LI_bovine=bovini, WE_temp_2m=temp,WE_wind_speed_10m_mean=wind)
+predict(model_pm10_2_basso,newdata,interval="predict", level=0.95)
+
+
+
+model_pm10_2_alto <- lm((AQ_pm10)^(1/3) ~ LI_bovine + WE_temp_2m +WE_wind_speed_10m_mean,  data = agri_da_y)
+bovini=10000
+temp=agri_da_y$WE_temp_2m
+wind=agri_da_y$WE_wind_speed_10m_mean
+
+newdata<-data.frame(LI_bovine=bovini, WE_temp_2m=temp,WE_wind_speed_10m_mean=wind)
+predict(model_pm10_2_alto,newdata,interval="predict", level=0.95)
+```
+
+PREVISIONE INVERNO
+```{r}
+
+model_pm10_inv_2_basso <- lm(AQ_pm10 ~ LI_bovine + WE_temp_2m +WE_wind_speed_10m_mean,  data = agri_da_x)
+bovini=10
+temp=agri_da_x$WE_temp_2m
+wind=agri_da_x$WE_wind_speed_10m_mean
+
+newdata<-data.frame(LI_bovine=bovini, WE_temp_2m=temp,WE_wind_speed_10m_mean=wind)
+predict(model_pm10_inv_2_basso,newdata,interval="predict", level=0.95)
+
+
+
+model_pm10_inv_2_alto <- lm(AQ_pm10 ~ LI_bovine + WE_temp_2m +WE_wind_speed_10m_mean,  data = agri_da_x)
+bovini=10000
+temp=agri_da_x$WE_temp_2m
+wind=agri_da_x$WE_wind_speed_10m_mean
+
+newdata<-data.frame(LI_bovine=bovini, WE_temp_2m=temp,WE_wind_speed_10m_mean=wind)
+predict(model_pm10_inv_2_alto,newdata,interval="predict", level=0.95)
+
+```
+
+
+```
