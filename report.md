@@ -6,32 +6,17 @@ title: Ustica_Report.html
 viewport: width=device-width, initial-scale=1
 ---
 
-::: {#MathJax_Message style="display: none;"}
-:::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: {.container-fluid .main-container}
-::: {#header}
-# Ustica_Report {#ustica_report .title .toc-ignore}
+# Ustica_Report 
 
 #### Aceti Alessia, De Vivo Massimo, Rossi Diego {#aceti-alessia-de-vivo-massimo-rossi-diego .author}
 
 #### 2024-01-08 {#section .date}
-:::
 
-Aceti Alessia matricola: 1079023 De Vivo Massimo matricola: 1081227
-Rossi Diego matricola: 1073945
-
-::: {#impatto-degli-allevamenti-di-bovini-sulla-qualità-dellaria-e-prospettive-di-mitigazione .section .level1}
 # Impact of Cattle Farming on Air Quality and Mitigation Prospects
-:::
-
-::: {#fonti .section .level1}
-# Sources:
+## Sources:
 
 Fasso_et_al_2023_ScientificData.pdf
-:::
 
-::: {#introduzione .section .level1}
 # Introduction:
 
 The issue of air pollution caused by agricultural activities,
@@ -41,9 +26,7 @@ between cattle farms and the rise in concentrations of atmospheric
 particulate matter (PM10) and other air pollutants. Understanding these
 impacts is crucial for developing effective environmental mitigation
 strategies.
-:::
 
-::::: {#variabili-di-interesse .section .level1}
 # Key Variables:
 
 Our study focuses on several key variables, with particular emphasis on:
@@ -59,7 +42,6 @@ Our study focuses on several key variables, with particular emphasis on:
 -   Cattle density: The number of cattle per unit area, reflecting the
     intensity of farming.
 
-::: {#variabile-risposta-y .section .level2}
 ## Variabile risposta y
 
 PM10: Particulate matter with an aerodynamic diameter of less than 10 μm
@@ -68,9 +50,8 @@ We designated PM10 as the response variable because, among the pollution
 variables, its altered trend was the closest to a normal distribution.
 Additionally, it had the fewest missing data points compared to the
 other pollution variables.
-:::
 
-::: {#variabile-esplicativa-x-per-rispondere-al-quesito .section .level2}
+
 ## \*\*Explanatory Variable (x) to Address the Research Question
 
 LI_bovine: Municipal density of bovines related to AQ stations
@@ -92,18 +73,13 @@ conditional rather than a marginal perspective. The inclusion of these
 variables allows us to explore in greater depth and specificity the
 relationship between cattle density and air quality, while
 simultaneously considering temperature and wind speed.
-:::
-:::::
 
-::: {#quesito-di-ricerca .section .level1}
 # Research Question:
 
 To what extent do cattle farming activities influence air quality, and
 which specific air pollutants are most strongly correlated with these
 agricultural practices?
-:::
 
-::: {#contesto-teorico .section .level1}
 # Theoretical Context:
 
 Previous studies have shown that ammonia emissions from cattle farming
@@ -113,17 +89,13 @@ climatic conditions and agricultural practices employed. Some research
 suggests that reducing the size of cattle farms and implementing
 sustainable management techniques could significantly contribute to the
 reduction of air pollution associated with cattle farming.
-:::
 
-::: {#metodologia .section .level1}
 # Methodology:
 
 We will utilize air monitoring data and regression analysis to examine
 the relationships between cattle density, atmospheric emissions, and air
 quality.
-:::
 
-::: {#obiettivi .section .level1}
 # Objectives:
 
 Evaluate the impact of cattle farming on PM10 concentrations. Identify
@@ -131,14 +103,11 @@ significant correlations between cattle density, atmospheric conditions,
 and pollutant concentrations.
 :::
 
-::: {#conclusioni-attese .section .level1}
 # Expected Conclusions:
 
 We expect that the results will contribute to a clearer understanding of
 the impacts of cattle farming on air quality.
-:::
 
-::: {#svolgimento .section .level1}
 # Execution
 
 As the first step, we imported the data from a specific dataset, from
@@ -738,9 +707,7 @@ cat("Media NOx in inverno:", mean_nox_inverno, "\n")
 
 I calcoli delle medie confermano ulteriormente le differenze di
 inquinamento tra la stagione estiva e quella invernale.
-:::
 
-::: {#analisi-variabile-risposta .section .level1}
 # Analisi variabile risposta
 
 ``` r
@@ -932,7 +899,6 @@ a causal relationship; other factors may play a more significant role in
 contributing to atmospheric pollution.
 :::
 
-::::::::::::::::::::: {#modello-lineare .section .level1}
 # Linear model
 
 ``` r
@@ -1009,10 +975,9 @@ summary(model_pm10_2)
 ## F-statistic:  18.7 on 3 and 93 DF,  p-value: 1.421e-09
 ```
 
-:::::: {#nel-modello-lineare-a-una-variabile-notiamo-che .section .level3}
 ### In the univariate linear model, we observe that:
 
-::: {#interpretazione-dei-coefficienti .section .level4}
+
 #### Interpretation of the Coefficients:
 
 The intercept is approximately 2.55, indicating that when cattle density
@@ -1023,28 +988,20 @@ The coefficient for `LI_bovine` is 0.00177, with a standard error of
 that the coefficient is statistically significant. Practically, an
 increase in cattle density is associated with an estimated increase of
 0.00177 in the cubic mean of PM10 during the summer.
-:::
 
-::: {#bontà-di-adattamento-del-modello .section .level4}
 #### Goodness of Fit of the Model:
 
 The coefficient of determination (R-squared) is 0.07415, indicating that
 7.4% of the variation in the cubic mean of AQ_pm10 can be explained by
 the variable `LI_bovine` during the summer.
-:::
 
-::: {#valutazione-globale-del-modello .section .level4}
 #### Overall Model Assessment:
 
 The **p-value** associated with the **F-statistic** is 0.00697,
 indicating that the model as a whole is statistically significant.
-:::
-::::::
 
-::::::: {#nel-modello-lineare-a-più-variabili .section .level3}
 ### In the multiple linear regression model:
 
-::: {#interpretazione-dei-coefficienti-1 .section .level4}
 #### Interpretation of the coefficients:
 
 The **intercept** is approximately 1.64. This means that when all
@@ -1062,25 +1019,19 @@ associated with the cubic mean of `pm10` during the summer.
 The coefficient for `WE_wind_speed_10m_mean` is 0.0463938, but the
 p-value is 0.399096, indicating that this coefficient is not significant
 during the summer.
-:::
 
-::: {#bontà-di-adattamento-del-modello-1 .section .level4}
 #### Goodness of fit of the model:
 
 The coefficient of determination (R-squared) is 0.3763, indicating that
 37.63% of the variation in the cubic mean of `AQ_pm10` can be explained
 by the predictive variables in the model during the summer.
-:::
 
-::: {#valutazione-globale-del-modello-1 .section .level4}
 #### Global model assessment:
 
 The p-value associated with the F-statistic is very low (1.421e-09),
 indicating that the model as a whole is highly significant during the
 summer.
-:::
 
-::: {#commenti-generali .section .level4}
 #### General Comments:
 
 The linear model with a single variable during the summer shows a
@@ -1264,13 +1215,9 @@ cattle, do not adequately explain the variation in the concentration of
 `pm10` during winter. It may be beneficial to consider additional
 variables or explore more complex models to enhance the prediction of
 air pollution levels.
-:::
-:::::::::::::::::::::
 
-::::::::::::::::::::::::::: {#grafici-di-diagnostica-dei-residui .section .level1}
 # Residual diagnostics plots
 
-:::::::: {#estate-singola-variabile .section .level2}
 ## Single-variable estimation
 
 ``` r
@@ -1292,9 +1239,9 @@ detailed analysis, we observe that the residuals are randomly
 distributed around the x-axis without showing particular trends,
 confirming that the model is appropriate and does not exhibit systematic
 deviations.
-:::
 
-::: {#q-q-residuals .section .level3}
+
+
 ### Q-Q Residuals:
 
 The plot shows the residuals against the quantiles of a normal
@@ -1305,9 +1252,7 @@ In this case, the points on the plot follow a straight line quite
 closely, indicating that the residuals are normally distributed. The
 linearity of the residuals\' distribution contributes to the reliability
 of the model in making predictions and interpreting the data.
-:::
 
-::: {#scale-location .section .level3}
 ### Scale-Location:
 
 The plot illustrates the relationship between the standardized residuals
@@ -1324,7 +1269,6 @@ residuals is greater for these values. Therefore, the assumption of
 homoscedasticity is not fully satisfied.
 :::
 
-::: {#residuals-vs-leverage .section .level3}
 ### Residuals vs Leverage:
 
 The plot provides a visualization of the residuals in relation to
@@ -1337,9 +1281,7 @@ be considered an outlier.
 In this case, there are very few points with high leverage, indicating
 the presence of some possible outliers in the data. Additionally, the
 red trend line of the residuals shows a slight downward tendency.
-:::
 
-::: {#conclusioni .section .level3}
 ### Conclusions:
 
 In general, the plots displayed in the image indicate that the linear
@@ -1352,7 +1294,6 @@ be improved.
 :::
 ::::::::
 
-:::::::: {#estate-più-variabili .section .level2}
 ## Summer multi-variables
 
 ``` r
@@ -1370,9 +1311,7 @@ the zero line and that the residuals are distributed fairly randomly
 around the x-axis without showing particular trends. This suggests that
 the linear regression model is well-fitted to the data and does not
 exhibit significant issues of non-linearity.
-:::
 
-::: {#q-q-residuals-1 .section .level3}
 ### Q-Q Residuals:
 
 In this context, the points on the plot approximately follow a straight
@@ -1389,15 +1328,12 @@ residuals is greater for these values. Therefore, the assumption of
 homoscedasticity is not fully satisfied.
 :::
 
-::: {#residuals-vs-leverage-1 .section .level3}
 ### Residuals vs Leverage:
 
 In this case, there are some points with high leverage, indicating the
 presence of possible outliers in the data. Additionally, the red trend
 line of the residuals shows a downward tendency.
-:::
 
-::: {#conclusioni-1 .section .level3}
 ### Conclusions:
 
 In general, the plots displayed in the image suggest that the linear
@@ -1406,10 +1342,7 @@ regression model is suitable for the data.
 However, in this case, the variance of the residuals is not homogeneous,
 particularly at the initial values, and there are some outliers in the
 data. These factors indicate that the model could be improved.
-:::
-::::::::
 
-:::::::: {#inverno-singola-variabile .section .level2}
 ## Winter single-variable
 
 ``` r
@@ -1427,9 +1360,7 @@ various points appear to be randomly distributed around the x-axis
 without exhibiting any specific trends. This suggests that the linear
 regression model is well-suited to the data, and no significant issues
 of non-linearity are apparent.
-:::
 
-::: {#q-q-residuals-2 .section .level3}
 ### Q-Q Residuals:
 
 In this case, the points on the graph do not perfectly follow a straight
@@ -1467,10 +1398,7 @@ distribution.
 However, they also highlight that the variance of the residuals is not
 entirely homogeneous and that there are some outliers in the data. These
 factors indicate that the model could be improved.
-:::
-::::::::
 
-:::::::: {#inverno-più-variabili .section .level2}
 ## Winter multi-variable
 
 ``` r
@@ -1488,18 +1416,14 @@ residuals are randomly distributed around the x-axis without exhibiting
 any specific trends. This suggests that the linear regression model is
 suitable for the data, and no significant issues of non-linearity are
 evident.
-:::
 
-::: {#q-q-residuals-3 .section .level3}
 ### Q-Q Residuals:
 
 In this case, the points on the graph do not perfectly align with a
 straight line at the initial and final values; however, the distribution
 of the residuals still resembles a normal distribution to a considerable
 extent.
-:::
 
-::: {#scale-location-3 .section .level3}
 ### Scale-Location:
 
 In the graph, the residuals appear to be randomly distributed around the
@@ -1509,16 +1433,13 @@ residuals is greater for these values. Therefore, the assumption of
 homoscedasticity is not fully satisfied.
 :::
 
-::: {#residuals-vs-leverage-3 .section .level3}
 ### Residuals vs Leverage:
 
 In this case, there are very few points with high leverage, indicating
 the presence of some potential outliers in the data. Additionally, the
 red residual trend line is flat, suggesting that the linearity
 assumption should be further examined.
-:::
 
-::: {#conclusioni-3 .section .level3}
 ### Conclusions:
 
 In general, the graphs suggest that the linear regression model fits the
@@ -1530,11 +1451,8 @@ However, they also highlight that the variance of the residuals is not
 homogeneous, particularly at the final values, and that there are some
 outliers in the data. These factors indicate that the model could be
 improved.
-:::
-::::::::
-:::::::::::::::::::::::::::
 
-::: {#conclusioni-finali .section .level1}
+
 # Final conslusion
 
 The expected results were not observed in the analyses conducted.
@@ -1564,5 +1482,4 @@ The seemingly limited effect of cattle density may be obscured by other
 pollutants present in greater quantities in the sampled areas. Some
 pollutants may have a more significant impact on air quality, masking
 the effect of cattle density.
-:::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
